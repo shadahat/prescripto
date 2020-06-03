@@ -1,0 +1,45 @@
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="container">
+<div class="jumbotron" style="background-color:	#DCDCDC;">
+  <hgroup class="mb20">
+    <h1>Search Results</h1>
+    <h2 class="lead"><strong class="text-danger">{{doctors|length}}</strong> results were found for the search for <strong class="text-danger">Mehreen</strong></h2>
+	</hgroup>
+	<hr>
+  <div class="row">
+    {% for doctor in doctors %}
+      <div class="col-sm-4">
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+            	<!-- <img class="card-img-top" src="pulpitrock.jpg" alt="Card image cap"> -->
+                <h5 class="card-title">{{doctor.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-user-md"> {{doctor.speciality}}</i></h6>
+                <p class="card-text">
+                  <i class="fa fa-location-arrow" style="font-size:150%">  {{doctor.schedule.zone.area}}, {{doctor.schedule.zone.city}}</i>
+                	<br/> <i class="fa fa-calendar" style="font-size:150%"> {{doctor.schedule.startTime}}-{{doctor.schedule.endTime}}</i>
+                	<br/> <i class="fa fa-user-md" style="font-size:150%">  </i>
+                  <br/> Next available: {{additional.nextAvailable}}
+                </p>
+                <button>Request Appointment</button>
+            </div>
+            <div class="card-footer">
+              Progress:
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:85%">
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+
+{% include 'footer.html' %}

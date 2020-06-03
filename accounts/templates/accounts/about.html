@@ -1,0 +1,24 @@
+{% if user.is_authenticated %}
+  {% include 'header.html' %}
+{% else %}
+  {% include 'header_logged_out.html' %}
+{% endif %}
+
+
+
+<style>
+  .wrapper {
+    position: relative;
+  }
+</style>
+<div class = "container">
+  <div class = "wrapper">
+    <div class = "jumbotron text-center" style = "align:center">
+      <h1 class="cover-heading">Manage everything easily.</h1>
+      <p class="lead">Prescripto is a centralized system to make the management of medical procedures easy, efficient and easy to track.</p>
+      <p> Developed by Muntasir Wahed and Md Shahadat Hossain Shahin </p>
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html' %}

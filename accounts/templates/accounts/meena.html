@@ -1,0 +1,60 @@
+{% include 'header.html' %}
+
+<script>
+  window.onload=function () {
+       var objDiv = document.getElementById("messageBox");
+       objDiv.scrollTop = objDiv.scrollHeight;
+  }
+</script>
+<div class = "container">
+  <div class = "jumbotron" id = "messageBox">
+    {% for message in meena_messages %}
+      {% if message.sender == 'Meena' %}
+        <div class = "row text-right">
+          <div class = "col-sm-12">
+            <div class="alert alert-success">
+              <h3 style="align:left;"> <strong>{{message.sender}}</strong> </h3>
+              <p> {{message.meena_message}} </p>
+              {% if message.meena_message == 'Here are some doctors that you might want to consider.' %}
+                {% include 'meena_result.html' %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class = "row">
+          <div class = "col-sm-12">
+            <div class="alert alert-info">
+              <h3 style="align:left;"> <strong>{{message.sender}}</strong> </h3>
+              <p>{{message.meena_message}} </p>
+              
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <hr>
+    {% endfor %}
+    
+    
+    
+    <div class = "row">
+      <div class = "col-sm-12">
+        <form method="POST" action = "{% url 'meena' %}">
+          {% csrf_token %}
+          <div class = "row">
+            <div class = "col-sm-11">
+              <div class="form-group">
+                <textarea name = "message" class="form-control" id="exampleTextarea" rows="3" placeholder="Type..."></textarea>
+              </div>
+            </div>
+            <div class = "col-sm-1">
+              <button type = "submit" style = "">Send</button>
+            </div>
+          </div>
+          <input type = "hidden" name = "type" value="sent"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'footer.html' %}

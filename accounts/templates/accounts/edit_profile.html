@@ -1,0 +1,48 @@
+{% include 'header.html' %}
+
+<style>
+@media ( min-width: 768px ) {
+    .grid-divider {
+        position: relative;
+        padding: 0;
+    }
+    .grid-divider>[class*='col-'] {
+        position: static;
+    }
+    .grid-divider>[class*='col-']:nth-child(n+2):before {
+        content: "";
+        border-left: 1px solid #DDD;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+</style>
+<div class = "container">
+  {% include 'include_message.html' %}
+  <div class = "wrapper">
+    <div class = "jumbotron">
+      <div class="row grid-divider">
+        <div class="col-sm-6">
+          <div class = "col-padding">
+            <h1 class="cover-heading text-center">Basic Information</h1>
+            <hr>
+            <div class="container">
+              <table>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                    <button type="submit">Save</button>
+                </form>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'footer.html' %}

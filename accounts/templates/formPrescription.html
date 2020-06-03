@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#prescriptionModal{{app.appointment.id}}">
+Attend Now
+</button>
+<style>
+.modal.large {
+    width: 100%; /* respsonsive width */
+     /* width/2) */ 
+}
+</style>
+<div class="modal fade large" id="prescriptionModal{{app.appointment.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Write New Prescription</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <script>
+              $(document).ready(function(){
+                   var i{{app.appointment.id}}   =1;
+                   var clickDisabled = false;
+                   
+                   $("#add_row{{app.appointment.id}}").click(function(){
+                    console.log(i{{app.appointment.id}})
+                    if (clickDisabled)
+                           return;
+
+                  
+                                                      
+                    var idx =  i{{app.appointment.id}}      
+                    console.log(idx)                  
+                    clickDisabled = true;
+                    $('#addr'+idx).html("<td>"+ (idx+1) +"</td><td><select class='form-control' id='selmed"+idx+"' name = 'selected_med"+idx+"'>{% for med in medicine %}<option value = '{{ med.id }}' > {{med.name}} </option>{% endfor %}</select></td><td><input  name='amount"+idx+"' type='text' placeholder='quantity'  class='form-control input-md'></td><td><input  name='ai"+idx+"' type='text' placeholder='additional'  class='form-control input-md'></td>");
+
+                    $('#tab_logic{{app.appointment.id}}').append('<tr id="addr'+(idx+1)+'"></tr>');
+                    i{{app.appointment.id}}++; 
+                    document.getElementById("num_of_medicine").value = i{{app.appointment.id}};
+                    setTimeout(function(){clickDisabled = false;}, 200);
+                  });
+                   
+                   $("#delete_row{{app.appointment.id}}").click(function(){
+                       if (clickDisabled)
+                           return;
+                       var idx =  i{{app.appointment.id}}
+                       if(idx>1){
+                       $("#addr"+(idx-1)).html('');
+                       i{{app.appointment.id}}--;
+                       document.getElementById("num_of_medicine").value = i{{app.appointment.id}};
+                       }
+                       clickDisabled = true;
+                        setTimeout(function(){clickDisabled = false;}, 200);
+                   });
+                   
+                   var proc_i{{app.appointment.id}}=1;
+                   var proc_clickDisabled = false;
+                   
+                   $("#proc_add_row{{app.appointment.id}}").click(function(){
+                    if (proc_clickDisabled)
+                           return;
+
+                    proc_clickDisabled = true;
+                    var idx =  proc_i{{app.appointment.id}}
+                    $('#proc_addr'+idx).html("<td>"+ (idx+1) +"</td><td><select class='form-control' id='selproc"+idx+"' name = 'selected_proc"+idx+"'>{% for procedure in proc %}<option value = '{{ procedure.id }}' > {{procedure.name}} </option>{% endfor %}</select></td><td><input  name='proc_ai"+idx+"' type='text' placeholder='additional'  class='form-control input-md'></td>");
+
+                    $('#proc_tab_logic{{app.appointment.id}}').append('<tr id="proc_addr'+(idx+1)+'"></tr>');
+                    proc_i{{app.appointment.id}}++; 
+                    document.getElementById("num_of_report").value = proc_i{{app.appointment.id}};
+                    setTimeout(function(){proc_clickDisabled = false;}, 200);
+                  });
+                   
+                   $("#proc_delete_row{{app.appointment.id}}").click(function(){
+                       if (proc_clickDisabled)
+                           return;
+                       var idx =  proc_i{{app.appointment.id}}
+                       if(idx>1){
+                       $("#proc_addr"+(idx-1)).html('');
+                       proc_i{{app.appointment.id}}--;
+                       document.getElementById("num_of_report").value = proc_i{{app.appointment.id}};
+                       }
+                       proc_clickDisabled = true;
+                        setTimeout(function(){proc_clickDisabled = false;}, 200);
+                   });
+              });
+              </script>
+            <form  method = "POST" action = "{% url 'create_prescription' %}">
+              {% csrf_token %}
+              <div>
+              <p> Doctor : {{user.first_name}} {{user.last_name}} </p>
+              </div>
+              <hr>
+              <div>
+              <p> Patient : {{app.appointment.patient.user.first_name}} {{app.appointment.patient.user.last_name}}</p>
+              </div>
+              <hr>
+              
+              <div>
+                <h4> Medicines </h4>
+                <div class="container">
+                  <div class="row clearfix">
+                      <div class="col-md-12 column">
+                          <table class="table table-bordered table-hover" id="tab_logic{{app.appointment.id}}">
+                              <thead>
+                                  <tr >
+                                      <th class="text-center">
+                                          #
+                                      </th>
+                                      <th class="text-center">
+                                          Name
+                                      </th>
+                                      <th class="text-center">
+                                          Quantity
+                                      </th>
+                                      <th class="text-center">
+                                          Additional Information
+                                      </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr id='addr0'>
+                                      <td>
+                                      1
+                                      </td>
+                                      <td>
+                                        <select class="form-control" id="selmed0" name = "selected_med0">
+                                          {% for med in medicine %}
+                                            <option value = "{{ med.id }}" > {{med.name}} </option>
+                                          {% endfor %}
+                                        </select>
+                                      </td>
+                                      <td>
+                                      <input type="text" name='amount0' placeholder='quantity' class="form-control"/>
+                                      </td>
+                                      <td>
+                                      <input type="text" name='ai0' placeholder='additional' class="form-control"/>
+                                      </td>
+                                  </tr>
+                                  <tr id='addr1'></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <a id="add_row{{app.appointment.id}}" class="btn btn-default pull-left">Add Row</a><a id='delete_row{{app.appointment.id}}' class="pull-right btn btn-default">Delete Row</a>
+                  </div>
+                  
+                </div>
+              </div>
+              <hr>
+              <div>
+                <h4> Checkups and Other Medical Procedures </h4>
+                <div class="container">
+                  <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <table class="table table-bordered table-hover" id="proc_tab_logic{{app.appointment.id}}">
+                            <thead>
+                                <tr >
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th class="text-center">
+                                        Name
+                                    </th>
+                                    <th class="text-center">
+                                        Additional Information
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id='proc_addr0'>
+                                    <td>
+                                    1
+                                    </td>
+                                    <td>
+                                      <select class="form-control" id="selproc0" name = "selected_proc0">
+                                        {% for procedure in proc %}
+                                          <option value = "{{ procedure.id }}" > {{procedure.name}} </option>
+                                        {% endfor %}
+                                      </select>
+                                    </td>
+                                    <td>
+                                    <input type="text" name='proc_ai0' placeholder='additional' class="form-control"/>
+                                    </td>
+                                </tr>
+                                <tr id='proc_addr1'></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a id="proc_add_row{{app.appointment.id}}" class="btn btn-default pull-left">Add Row</a><a id='proc_delete_row{{app.appointment.id}}' class="pull-right btn btn-default">Delete Row</a>
+                  </div>
+                  
+                  
+                </div>
+              </div>
+               <input type="hidden" name="type" value="prescription">
+               <input type="hidden" name="appt_id" value="{{app.appointment.id}}">
+               <input type="hidden" id = "num_of_medicine" name="num_of_medicine" value="1">
+               <input type="hidden" id = "num_of_report" name="num_of_report" value="1">
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+              </div>
+            </form>
+          </div>
+          
+        </div>    
+    </div>
+</div>
+
+

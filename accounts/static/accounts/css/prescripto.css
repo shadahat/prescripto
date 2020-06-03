@@ -1,0 +1,46 @@
+html,
+body {
+  height: 100%;
+  background-color: #d8dfea;
+}
+.mastfoot {
+  color: #A9A9A9;
+}
+
+.fa-custom {
+  font-size: 0.5em;
+}
+.table tbody tr:nth-child(odd){background:#aaaec1;}
+.table td{border-top:px !important; }
+.table tbody tr:nth-child(even){background:#c0c1c6; }
+
+.jumbotron {
+  background-color: #afbdd4;
+}
+.navbar-custom {
+    background-color: #3b5998 !important;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand {
+  color: #000000;
+}
+.navbar-custom .navbar-text {
+    color: rgba(255,255,255,.8);
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+

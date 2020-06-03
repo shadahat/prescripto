@@ -1,0 +1,36 @@
+{% include 'header.html' %}
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="container">
+<div class="jumbotron" style="background-color:	#DCDCDC;">
+  <hgroup class="mb20">
+    <h1>Search Results</h1>
+    <h2 class="lead"><strong class="text-danger">{{data|length}}</strong> results were found for the search for <strong class="text-danger">{{key}}</strong></h2>
+	</hgroup>
+	<hr>
+  <div class="row">
+    {% for d in doctors %}
+      <div class="col-sm-4">
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{d.doctor.user.first_name}} {{d.doctor.user.last_name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-user-md"> {{d.doctor.education}}</i></h6>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-user-md"> {{d.doctor.user.email}}</i></h6>
+
+                <button>Request Appointment</button>
+            </div>
+            <div class="card-footer">
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+

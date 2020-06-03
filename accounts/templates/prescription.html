@@ -1,0 +1,150 @@
+<style>
+@media ( min-width: 768px ) {
+    .grid-divider {
+        position: relative;
+        padding: 0;
+    }
+    .grid-divider>[class*='col-'] {
+        position: static;
+    }
+    .grid-divider>[class*='col-']:nth-child(n+2):before {
+        content: "";
+        border-left: 1px solid #DDD;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+</style>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#record{{id}}">
+Record
+</button>
+<style>
+.modal.large {
+    width: 100%; /* respsonsive width */
+     /* width/2) */ 
+}
+</style>
+
+
+<div class="modal fade large" id="record{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Your Prescription</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class = "row  grid-divider">
+              <div class = "col-sm-12">
+                Name of patient: {{patient.first_name}} {{patient.last_name}}</br>
+                Name of Doctor: {{doctor.first_name}} {{doctor.last_name}}
+              </div>
+            </div>
+            <hr>
+            
+            <div class = "row">
+              <div class = "col-sm-12">
+                <h5> Medicines </h5>
+                <table class="table table-bordered table-hover" id="tab_logic">
+                  <thead>
+                      <tr >
+                          <th class="text-center">
+                              #
+                          </th>
+                          <th class="text-center">
+                              Name
+                          </th>
+                          <th class="text-center">
+                              Quantity
+                          </th>
+                          <th class="text-center">
+                              Additional Information
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for med in medicines %}
+                      <tr id='addr0'>
+                        <td>
+                        #{{forloop.counter}}
+                        </td>
+                        <td>
+                        <p>{{med.medicine.name}}</p>
+                        </td>
+                        <td>
+                        <p>{{med.amount}}</p>
+                        </td>
+                        <td>
+                        <p>{{med.addInfo}}</p>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>  
+            
+            
+            <hr>
+           
+            <div class = "row">
+              <div class = "col-sm-12">
+                <h5> Reports </h5>
+                <table class="table table-bordered table-hover" id="proc_tab_logic">
+                  <thead>
+                    <tr >
+                        <th class="text-center">
+                            #
+                        </th>
+                        <th class="text-center">
+                            Name
+                        </th>
+                        <th class="text-center">
+                            Additional Information
+                        </th>
+                        <th>
+                          Report
+                        </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for report in reports %}
+                      <tr id='proc_addr0'>
+                        <td>
+                        #{{forloop.counter}}
+                        </td>
+                        <td>
+                          <p>{{report.procedure.name}}</p>
+                        </td>
+                        <td>
+                          <p>{{report.addInfo}}</p>
+                        </td>
+                        <td>
+                          {% if report.status == 'P' %}
+                            <p> {{report.token}} </p>
+                          {% else %}
+                            <button type="button"><a href="http://127.0.0.1:8000/accounts{{report.file.url}}"> Report</a></button>
+                          {% endif %}
+                           
+                        </td>
+                      </tr>                  
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+</div>
+
+

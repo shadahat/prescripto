@@ -1,0 +1,77 @@
+{% if user.is_authenticated %}
+  {% include 'header.html' %}
+{% else %}
+  {% include 'header_logged_out.html' %}
+{% endif %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+<style>
+  .wrapper {
+    position: relative;
+  }
+</style>
+<style>
+@media ( min-width: 768px ) {
+    .grid-divider {
+        position: relative;
+        padding: 0;
+    }
+    .grid-divider>[class*='col-'] {
+        position: static;
+    }
+    .grid-divider>[class*='col-']:nth-child(n+2):before {
+        content: "";
+        border-left: 1px solid #DDD;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+</style>
+<div class = "container">
+  {% include 'include_message.html' %}
+  <div class = "wrapper">
+    <div class = "jumbotron">
+      <div class="row grid-divider">
+      <div class="col-sm-6">
+        <div class = "col-padding">
+          <h1 class="cover-heading text-center">Contact Information</h1>
+          <hr>
+          <i class="fas fa-envelope"> prescriptobd@gmail.com</i></br>
+          <i class="fas fa-location-arrow"> Department of Computer Science and Engineering, University of Dhaka</i>
+        </div>
+      </div>
+      <div class = "col-sm-6 col-padding">
+        <div class = "col-padding">
+          <h1 class="cover-heading text-center">Contact Us</h1>
+          <div>
+            <form method = "POST" action = "{% url 'save_message' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputEmail">Email address</label>
+                <input name = "email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputName">Name</label>
+                <input name = "name" type="text" class = "form-control" placeholder="Enter your name">
+              </div>
+              <div class="form-group">
+                <label for="exampleTextarea">Your message</label>
+                <textarea name = "message" class="form-control" id="exampleTextarea" rows="3" placeholder="Enter your message"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Confirm</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div>
+      
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html' %}

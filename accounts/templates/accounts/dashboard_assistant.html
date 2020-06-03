@@ -1,0 +1,47 @@
+{% include "header.html" %}
+
+<html>
+  <body>
+    <div class="container">
+      {% include 'include_message.html' %}
+      <div class="jumbotron">
+        <h3 class="page-header">Welcome to your dashboard, {{user.first_name}} {{user.last_name}}.</h1>
+        <div class="row">
+          {% for doctor in doctors %}
+            <div class="col-sm-4">
+                <div class="card bg-light mb-3">
+                  <div class="card-body">
+                  	<!-- <img class="card-img-top" src="pulpitrock.jpg" alt="Card image cap"> -->
+                      <h5 class="card-title">{{doctor.doctor.user.first_name}} {{doctor.doctor.user.last_name}} </h5>
+                      <h6 class="card-subtitle mb-2 text-muted"> Speciality : {{doctor.doctor.education}}</h6>
+                      <p class="card-text">
+                      	<!-- <br/> Schedule: {{doctor.schedule}} -->
+                          <br/> Appointment Limit: {{doctor.doctor.appointmentsPerDay}}
+                          <br/> Total Issued Today: {{doctor.issued_apps_today}}
+                          <br/> Appointments attended: {{doctor.appointments_attended}}
+                      </p>
+                      {% include 'formAppointment1.html' %}
+                      
+                  </div>
+                  <div class="card-footer">
+                    <!--
+                    Progress:
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" role="progressbar" style="width:35%">
+                      </div>
+                      <div class="progress-bar progress-bar-warning" role="progressbar" style="width:15%">
+                      </div>
+                    </div>
+                    -->
+                  </div>  
+                </div>    
+            </div> 
+          {% endfor %}  
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+{% include 'footer.html' %}

@@ -1,0 +1,67 @@
+{% include "header.html" %}
+
+<html>
+  
+  <body>
+    <div class="container">
+      {% include 'include_message.html' %}
+      <div class="jumbotron">
+        <h3 class="page-header">Welcome to your dashboard, {{user.first_name}} {{user.last_name}}.</h3>
+        <hr>
+        <div class="row">
+           <h5 class="page-header">Pending Appointments</h5>
+           <table class="table table-striped">
+            <thead>
+              <tr class = "table bg-dark text-white">
+                <th>#</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Place</th>
+              </tr>
+            </thead>
+            {% for app in appointments %}
+              <tbody>
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{app.dsm.doctor.user.first_name}} {{app.dsm.doctor.user.last_name}}</td>
+                  <td>{{app.dateOfApp}}</td>
+                  <td>{{app.dsm.schedule.zone}}</td>
+                </tr>  
+              
+              </tbody>
+            {% endfor %}
+            
+          </table>  
+        </div>
+        <div class="row">
+          <h5 class="page-header">Previous Appointments</h5>
+          <table class="table table-striped">
+            <thead>
+              <tr class = "table bg-dark text-white">
+                <th>#</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Record</th>
+              </tr>
+            </thead>
+            {% for record in records %}
+              <tbody>
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{record.record.appointment.dsm.doctor.user.last_name}} {{record.record.appointment.dsm.doctor.user.last_name}}</td>
+                  <td>{{record.record.appointment.dateOfApp}}</td>
+                  <td>{% include 'prescription.html' with medicines=record.medicines reports=record.reports id=record.record.id doctor=record.record.appointment.dsm.doctor.user patient=user %} {% include 'prescription_print.html' with medicines=record.medicines reports=record.reports doctor=record.record.appointment.dsm.doctor.user patient=user id=record.record.id %} </td>
+                </tr>  
+              </tbody>
+            {% endfor %}
+          </table>  
+        </div>
+      </div>
+      
+    </div>
+  </body>
+</html>
+
+
+{% include 'footer.html' %}
+

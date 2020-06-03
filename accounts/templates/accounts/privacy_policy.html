@@ -1,0 +1,24 @@
+{% if user.is_authenticated %}
+  {% include 'header.html' %}
+{% else %}
+  {% include 'header_logged_out.html' %}
+{% endif %}
+
+
+
+<style>
+  .wrapper {
+    position: relative;
+  }
+</style>
+<div class = "container">
+  <div class = "wrapper">
+    <div class = "jumbotron text-center" style = "align:center">
+      <h1 class="cover-heading">Your privacy is our primary concern.</h1>
+      <p class="lead">Prescripto will never share your personal information with others without your consent.</p>
+      <p> In future, we would need data to facilitate research. But we will always ask for your permission, and data will be completely aunonymous.</p>
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html' %}

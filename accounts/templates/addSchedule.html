@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#appModal">
+Add New Schedule
+</button>
+
+<div class="modal fade" id="appModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <form method = "POST" action = "{% url 'add_schedule' %}">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="appointmentModal{{doctor.doctor.id}}">Request</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+              {% csrf_token %}
+              <div class="form-group row">
+                <div class = "col-sm-2">
+                  <label for="inputDay" class="col-sm-2 col-form-label">Day</label>
+                </div>
+                <div class = "col-sm-10">
+                  <select class="form-control" id="day" name = "day"> 
+                    <option value = "Friday" >Friday</option>
+                    <option value = "Saturday" >Saturday</option>
+                    <option value = "Sunday" >Sunday</option>
+                    <option value = "Monday" >Monday</option>
+                    <option value = "Tuesday" >Tuesday</option>
+                    <option value = "Wednesday" >Wednesday</option>
+                    <option value = "Thursday" >Thursday</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputStartTime" class="col-sm-2 col-form-label">Start Time</label>
+                <div class="col-sm-10">
+                  <input type="time" class="form-control" id="start" name = "start" placeholder="hour:minute">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputStartTime" class="col-sm-2 col-form-label">End Time</label>
+                <div class="col-sm-10">
+                  <input type="time" class="form-control" id="end" name = "end" placeholder="hour:minute">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Road</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputAddress" name="road" placeholder="Road No">
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <div class = "col-sm-2">
+                  <label for="inputCity" class="col-sm-2 col-form-label"> Location </label>
+                </div>
+                <div class = "col-sm-10">
+                  <select class="form-control" id="zone" name = "zone"> 
+                    {% for zone in zones %}
+                      <option value = "{{zone.id}}" >{{zone}}</option>                    
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <input type="hidden" id="did" name="did" value="{{user.doctor.id}}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+</div>

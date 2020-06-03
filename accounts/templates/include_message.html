@@ -1,0 +1,7 @@
+{% if notification is not None %}
+  {% if notification.type == 'F' %}
+    {% include 'error_message.html' with msg=notification.msg %}
+  {% else %}
+    {% include 'success_message.html' with msg=notification.msg %}
+  {% endif %}
+{% endif %} 

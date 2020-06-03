@@ -1,0 +1,49 @@
+{% include "header.html" %}
+
+<html>
+  <body>
+    <div class="container">
+     {% include 'include_message.html' %}
+      <div class="jumbotron">
+        <h3 class="page-header">Welcome to your dashboard, {{user.first_name}} {{user.last_name}}.</h1>
+        <p> Here are the appointments for today. </p>
+        <div class="row">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr class = "table bg-dark text-white">
+                  <th>#</th>
+                  <th>Patient</th>
+                  <th>Registered by</th>
+                  <th>Place</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for app in apps %}  
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{app.appointment.patient.user.first_name}} {{app.appointment.patient.user.last_name}}</td>
+                    <td>{{app.appointment.assistant.user.first_name}} {{app.appointment.assistant.user.last_name}}</td>
+                    <td>{{app.appointment.dsm.schedule.zone}}</td>
+                    {% if app.appointment.status == 'D' %}
+                      <td><button type="button" class="btn btn-success">Done</button></td>
+                    {% else %}
+                      <td> {% include 'formPrescription.html' %} </td>
+                    {%endif %}
+                    
+                  </tr>  
+                {% endfor %}
+              </tbody>
+            </table>
+          </div> 
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+{% include 'footer.html' %}
+

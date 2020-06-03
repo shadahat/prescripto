@@ -1,0 +1,30 @@
+<div class = "jumbotron">
+    <form method="POST" action="{% url 'search' %}">
+    {% csrf_token %}
+    <fieldset style="padding-top:50px">
+        <!-- Search Name -->
+        <div class="form-group">
+            <label class="sr-only" for="item-name">Search query</label>
+                <input id="item-name" name="data" placeholder="Search query" class="form-control">
+        </div>
+        <!-- Search Category -->
+        <div class="form-group">
+            <label class="sr-only" for="item-category">Search by</label>
+                <select id="item-category" name="searchby" class="form-control">
+                    <option>...</option>
+                    <option>Search by name</option>
+                    <option>Search by speciality</option>
+                    <option>Search by location</option>
+                </select>
+        </div>
+        <!-- Search Auction -->
+        <div class="form-group">
+            <label class="sr-only" for="submit">Search</label>
+                <button type="submit" class="btn btn-primary"><span
+                        class="glyphicon glyphicon-search" aria-hidden="true"> Search</span></button>
+        </div>
+    </fieldset>
+    </form>
+</div>
+
+

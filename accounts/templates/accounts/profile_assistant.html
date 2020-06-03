@@ -1,0 +1,62 @@
+{% include 'header.html' %}
+<style>
+@media ( min-width: 768px ) {
+    .grid-divider {
+        position: relative;
+        padding: 0;
+    }
+    .grid-divider>[class*='col-'] {
+        position: static;
+    }
+    .grid-divider>[class*='col-']:nth-child(n+2):before {
+        content: "";
+        border-left: 1px solid #DDD;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+</style>
+
+<div class = "container">
+  <div class  = "jumbotron">
+    <div class = "container">
+      <div class="row grid-divider">
+        <div class="col-sm-4">
+          <div class="col-padding">
+            {% load staticfiles %}
+            <figure class="figure">
+              <img src="{% static 'accounts/images/mehreen.png'%}" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+              <!-- <figcaption class="figure-caption">A caption for the above image.</figcaption> -->
+            </figure> 
+            
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="col-padding">
+            <h4>Personal Information</h4>
+            <hr>
+            <p>
+            First Name: {{user.first_name}}
+            </br>Last Name: {{user.last_name}}
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="col-padding">
+            <h4>Contact Information</h4>
+            <hr>
+            <p> This data is not public. </p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      
+    </div>
+  </div>
+</div>
+
+{% include 'footer.html' %}

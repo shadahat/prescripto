@@ -1,0 +1,23 @@
+{% include 'header.html' %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+  <div class="jumbotron">
+    <div class="row">
+      {% for doctor in docs %}
+        <div class="col-sm-4">
+            <div class="card bg-light mb-3">
+              <div class="card-body">
+                  <h5 class="card-title">{{doctor.doctor.user.first_name}} {{doctor.doctor.user.last_name}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-user-md"> {{doctor.doctor.education}}</i></h6>
+                  <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-user-md"> {{doctor.doctor.user.email}}</i></h6>
+                  {% include 'formAppRequest.html' %}
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+

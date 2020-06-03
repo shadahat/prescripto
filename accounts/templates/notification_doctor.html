@@ -1,0 +1,24 @@
+<div class = "container">
+  <h4>Notifications</h4>
+  {% for req in requests %}
+    <form  method = "POST" action = "{% url 'accept_assistant' %}">
+      {% csrf_token %}
+      <div class = "row">
+        <div class="card">
+          <div class="card-body">
+              <p class="card-text">{{req.assistant.user.first_name}} {{req.assistant.user.last_name}} wants to be your assistant.</p>
+              <button type="submit" class="btn btn-primary btn-sm">Accept</button>
+              <button type="button" class="btn btn-danger btn-sm">Reject</button>
+              <input type="hidden" name="type" value="accept_appointment">
+              <input type="hidden" name="aid" value="{{req.assistant.id}}">
+          </div>
+        </div>
+      </div>
+    
+    </form>
+    {% if forloop.counter >= 3 %}
+      <a href = "#">See all notifications.</a>
+    {% endif %}
+  {% endfor %}
+</div>
+

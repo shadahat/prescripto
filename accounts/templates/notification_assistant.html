@@ -1,0 +1,27 @@
+<div class = "container">
+  <h4>Notifications</h4>
+  {% for request in requests %}
+    <form  method = "POST" action = "{% url 'accept_appointment' %}">
+      {% csrf_token %}
+      <div class = "row">
+        <div class="card">
+          <div class="card-body">
+              <p class="card-text">{{request.patient.user.first_name}} {{request.patient.user.last_name}} wants an appointment with {{request.dsm.doctor.user.first_name}} {{request.dsm.doctor.user.last_name}} on {{request.dsm.schedule.zone}} [{{request.dsm.schedule.startTime}} - {{request.dsm.schedule.endTime}}].</p>
+              <button type="submit" class="btn btn-primary btn-sm">Accept</button>
+              <button type="button" class="btn btn-danger btn-sm">Reject</button>
+              <input type="hidden" name="id" value="{{request.id}}">
+              <input type="hidden" name="dsmid" value="{{request.dsm.id}}">
+              <input type="hidden" name="pid" value="{{request.patient.id}}">
+              <input type="hidden" name="date" value="{{request.dateOfApp}}">
+          </div>
+        </div>
+      </div>
+    
+    </form>
+    {% if forloop.counter >= 3 %}
+      <a href = "#">See all notifications.</a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+
